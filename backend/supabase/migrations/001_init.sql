@@ -1,0 +1,26 @@
+-- Cargos input
+CREATE TABLE cargos (
+  id TEXT PRIMARY KEY,
+  volume NUMERIC NOT NULL,
+  session_id UUID NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Tanks input
+CREATE TABLE tanks (
+  id TEXT PRIMARY KEY,
+  capacity NUMERIC NOT NULL,
+  session_id UUID NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Allocation results
+CREATE TABLE allocations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id UUID NOT NULL,
+  tank_id TEXT NOT NULL,
+  cargo_id TEXT NOT NULL,
+  allocated_volume NUMERIC NOT NULL,
+  status TEXT CHECK (status IN ('full_cargo', 'partial_tank', 'split')),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
