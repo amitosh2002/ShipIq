@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
+import WebSocket from 'ws';
 
 // Load environment variables if not already loaded
 dotenv.config();
@@ -13,7 +14,15 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(
   supabaseUrl || 'https://placeholder.supabase.co',
-  supabaseKey || 'placeholder-key'
+  supabaseKey || 'placeholder-key',
+  {
+    auth: {
+      persistSession: false
+    },
+    realtime: {
+      transport: WebSocket
+    }
+  }
 );
 
 export default supabase;
