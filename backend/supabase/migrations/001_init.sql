@@ -1,17 +1,19 @@
 -- Cargos input
 CREATE TABLE cargos (
-  id TEXT PRIMARY KEY,
+  id TEXT,
   volume NUMERIC NOT NULL,
   session_id UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  PRIMARY KEY (session_id, id)
 );
 
 -- Tanks input
 CREATE TABLE tanks (
-  id TEXT PRIMARY KEY,
+  id TEXT,
   capacity NUMERIC NOT NULL,
   session_id UUID NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  PRIMARY KEY (session_id, id)
 );
 
 -- Allocation results
