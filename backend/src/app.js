@@ -11,7 +11,7 @@ const app = express();
 // ── Middleware ──────────────────────────────────────────────────────
 
 // CORS
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 // Rate limiting — 100 requests per 15 minutes per IP
 const limiter = rateLimit({
