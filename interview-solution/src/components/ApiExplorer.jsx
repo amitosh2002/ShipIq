@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, AlertTriangle, CheckCircle, Clock, Server, Loader2, X } from 'lucide-react';
 
-const API_BASE = 'http://localhost:3000';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
 export default function ApiExplorer({ onLogResponse }) {
   const [metadata, setMetadata] = useState(null);
@@ -22,7 +22,7 @@ export default function ApiExplorer({ onLogResponse }) {
       .catch(err => console.error("Failed to fetch metadata:", err));
   }, []);
 
-  const activeEndpoint = metadata?.endpoints[activeEndpointIndex];
+  const activeEndpoint = metadata?.endpoints?.[activeEndpointIndex];
   const paramsSchema = activeEndpoint?.queryParams || activeEndpoint?.bodyParams || [];
 
   // Handle form changes
@@ -130,7 +130,7 @@ export default function ApiExplorer({ onLogResponse }) {
     }
   };
 
-  if (!metadata) return (
+  if (!metadata || !metadata.endpoints) return (
     <div className="main-content loading-state">
       <Loader2 size={32} className="spinner" />
       <p>Loading API Schema...</p>
@@ -138,10 +138,10 @@ export default function ApiExplorer({ onLogResponse }) {
   );
 
   return (
-    <main className="main-content">
+    <main className="api-main-content">
       {/* Sidebar Navigation */}
-      <aside className="sidebar">
-        <div className="sidebar-header">Available Endpoints</div>
+      <aside className="api-sidebar">
+        <div className="api-sidebar-header">Available Endpoints</div>
         <ul className="endpoint-list">
           {metadata.endpoints.map((ep, idx) => (
             <li 

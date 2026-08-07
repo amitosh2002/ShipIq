@@ -10,13 +10,14 @@ export default function GithubSandbox() {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
   const fetchApi = async (url) => {
     setLoading(true);
     setError(null);
     setResponse(null);
     try {
-      const res = await fetch(`http://localhost:3000${url}`, {
+      const res = await fetch(`${API_BASE}${url}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -37,8 +38,15 @@ export default function GithubSandbox() {
   };
 
   return (
-    <div className="sandbox-container" style={{ backgroundColor: 'var(--bg-secondary)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border)' }}>
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
+    <div className="sandbox-container">
+      <header className="sandbox-header">
+        <div className="sandbox-title">
+          <Play size={24} color="#10b981" />
+          GitHub Sandbox
+        </div>
+      </header>
+      <div className="sandbox-content-padding">
+        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
         <div className="form-group" style={{ flex: '1 1 200px' }}>
           <label>Owner</label>
           <input 
@@ -115,14 +123,15 @@ export default function GithubSandbox() {
         </div>
       )}
 
-      {response && (
-        <div className="response-viewer" style={{ marginTop: '1rem' }}>
-          <h4>Response Payload (JSON)</h4>
-          <pre style={{ backgroundColor: 'var(--bg-primary)', padding: '1rem', borderRadius: '8px', overflowX: 'auto', fontSize: '0.85rem' }}>
-            <code>{JSON.stringify(response, null, 2)}</code>
-          </pre>
-        </div>
-      )}
+        {response && (
+          <div className="response-viewer" style={{ marginTop: '1rem' }}>
+            <h4>Response Payload (JSON)</h4>
+            <pre className="json-viewer">
+              <code>{JSON.stringify(response, null, 2)}</code>
+            </pre>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

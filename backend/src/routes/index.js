@@ -26,7 +26,7 @@ router.get('/results', handleResults);
 
 // Interview Mock API Routes
 // Apply chaos middleware to simulate real-world random API failures (20%)
-router.use(['/metadata', '/logs', '/deployments', '/notifications', '/projects', '/search'], chaosMiddleware);
+router.use(['/logs', '/deployments', '/notifications', '/projects', '/search'], chaosMiddleware);
 
 router.get('/metadata', getMetadata);
 router.get('/logs', getLogs);

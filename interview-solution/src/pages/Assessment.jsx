@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { ArrowLeft, Terminal } from 'lucide-react';
 import { API_EXPLORER_ASSIGNMENT, QA_TESTING_ASSIGNMENT, GITHUB_PR_ASSIGNMENT } from '../data/assignmentText';
 import GithubSandbox from '../components/GithubSandbox';
+import ApiSandbox from '../components/ApiSandbox';
 
 export default function Assessment() {
   const { id } = useParams();
@@ -40,12 +41,13 @@ export default function Assessment() {
         </div>
       )}
 
-      {id === 'api-explorer' && (
-        <div className="launch-bar">
-          <p>Ready to begin?</p>
-          <button className="btn-primary" onClick={() => navigate('/workspace')}>
-            <Terminal size={18} /> Launch Workspace
-          </button>
+      {(id === 'api-explorer' || id === 'qa-testing') && (
+        <div style={{ marginTop: '2rem' }}>
+          <h2>API Sandbox</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
+            Use this interactive sandbox to test the mock endpoints and see the chaos middleware in action.
+          </p>
+          <ApiSandbox />
         </div>
       )}
     </div>
