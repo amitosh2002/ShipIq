@@ -9,6 +9,8 @@ import {
   getNotifications, 
   getProjects,
   advancedSearch,
+  updateProject,
+  deleteLog,
   chaosMiddleware
 } from '../controllers/interview.controller.js';
 
@@ -28,5 +30,7 @@ router.get('/deployments', getDeployments);
 router.get('/notifications', getNotifications);
 router.get('/projects', getProjects);
 router.post('/search', advancedSearch);
+router.put('/projects/:id', updateProject);
+router.delete('/logs/:id', deleteLog);
 
 export default router;

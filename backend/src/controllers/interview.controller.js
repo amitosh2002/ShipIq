@@ -112,6 +112,20 @@ export const getMetadata = (req, res) => {
           { name: 'count', type: 'number', required: false },
           { name: 'filter', type: 'string', required: false }
         ]
+      },
+      {
+        name: 'Update Project',
+        path: '/projects/:id',
+        method: 'PUT',
+        bodyParams: [
+          { name: 'status', type: 'select', options: ['ACTIVE', 'ARCHIVED', 'PLANNING', 'COMPLETED'], required: true },
+          { name: 'teamSize', type: 'number', required: false }
+        ]
+      },
+      {
+        name: 'Delete Log',
+        path: '/logs/:id',
+        method: 'DELETE'
       }
     ]
   });
@@ -169,4 +183,37 @@ export const advancedSearch = (req, res) => {
   else return res.status(400).json({ error: true, message: `Validation Error: Invalid resource type '${resource}'` });
   
   res.json({ data, count: data.length });
+};
+
+export const updateProject = (req, res) => {
+  const { id } = req.params;
+  const { status, teamSize } = req.body;
+  
+  if (!status) {
+    return res.status(400).json({ error: true, message: 'Validation Error: missing required field "status" in body' });
+  }
+
+  res.json({
+    message: `Project ${id} updated successfully`,
+    project: {
+      id,
+      status,
+      teamSize: teamSize || Math.floor(Math.random() * 20) + 1,
+      updatedAt: new Date().toISOString()
+    }
+  });
+};
+
+export const deleteLog = (req, res) => {
+  const { id } = req.params;
+  
+  if (!id) {
+    return res.status(400).json({ error: true, message: 'Validation Error: missing log ID' });
+  }
+
+  res.json({
+    message: `Log ${id} deleted successfully`,
+    deletedId: id,
+    deletedAt: new Date().toISOString()
+  });
 };
