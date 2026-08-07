@@ -2,7 +2,8 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { ArrowLeft, Terminal } from 'lucide-react';
-import { API_EXPLORER_ASSIGNMENT, QA_TESTING_ASSIGNMENT } from '../data/assignmentText';
+import { API_EXPLORER_ASSIGNMENT, QA_TESTING_ASSIGNMENT, GITHUB_PR_ASSIGNMENT } from '../data/assignmentText';
+import GithubSandbox from '../components/GithubSandbox';
 
 export default function Assessment() {
   const { id } = useParams();
@@ -13,6 +14,8 @@ export default function Assessment() {
     markdownContent = API_EXPLORER_ASSIGNMENT;
   } else if (id === 'qa-testing') {
     markdownContent = QA_TESTING_ASSIGNMENT;
+  } else if (id === 'github-pr-explorer') {
+    markdownContent = GITHUB_PR_ASSIGNMENT;
   }
 
   return (
@@ -26,6 +29,16 @@ export default function Assessment() {
           <ReactMarkdown>{markdownContent}</ReactMarkdown>
         </div>
       </div>
+
+      {id === 'github-pr-explorer' && (
+        <div style={{ marginTop: '2rem' }}>
+          <h2>API Sandbox</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
+            Use this interactive sandbox to test the mock GitHub endpoints. The required mock token will be automatically injected into your headers.
+          </p>
+          <GithubSandbox />
+        </div>
+      )}
 
       {id === 'api-explorer' && (
         <div className="launch-bar">

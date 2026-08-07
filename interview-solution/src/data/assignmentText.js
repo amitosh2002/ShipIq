@@ -201,3 +201,103 @@ Candidates must construct a Full-Stack application consisting of a React Fronten
 4. **Response Segregation & Backend Persistence:** Intercept every outbound request/response in the candidate's backend, categorize responses (Success, Client Error, Server Error, Timeout, Parsing Failure), and store them.
 5. **Audit Trail / Request History View:** Provide a dedicated UI view displaying historically executed requests, response times, status codes, and stored payloads.
 `;
+
+export const GITHUB_PR_ASSIGNMENT = `
+# 40 min Challenge
+**Version:** 1.0  
+**Duration:** 40 Minutes Coding + 15 Minutes Discussion  
+**AI Usage:** ✅ Allowed
+
+---
+
+## 🎯 Objective
+This challenge evaluates a candidate's ability to:
+- Build a real-world feature
+- Read and integrate third-party APIs
+- Design reusable components
+- Work effectively with AI tools
+- Debug and explain generated code
+- Adapt to changing product requirements
+
+The goal is not to evaluate whether a candidate can memorize syntax, but whether they can build production-quality features and explain their implementation.
+
+---
+
+## 💻 Challenge: GitHub Pull Request Explorer
+Build a small web application that displays GitHub Pull Requests for a repository and allows users to explore them using dynamic filters.
+
+### APIs
+You will use our **Mock GitHub API** which perfectly replicates the real GitHub API responses (but doesn't require a real token or hit rate limits).
+
+The interviewer will provide:
+- **Repository Owner** (e.g., \`hora-hq\`)
+- **Repository Name** (e.g., \`core-api\`)
+- **GitHub Personal Access Token** (Any string will work for the mock)
+
+**Required Endpoints:**
+1. \`GET /repos/{owner}/{repo}\`
+2. \`GET /repos/{owner}/{repo}/pulls\`
+
+*(Note: You must pass the token as an \`Authorization: Bearer <token>\` header.)*
+
+---
+
+## 📋 Functional Requirements
+
+### 1. Repository Summary
+Display the following information:
+- Repository Name
+- Description
+- Stars
+- Forks
+- Open Issues
+
+### 2. Pull Request List
+Display a table containing:
+- Title
+- Author
+- State
+- Created Date
+
+### 3. Search
+Users should be able to search Pull Requests by:
+- Title
+- Author
+
+### 4. Dynamic Filter Builder
+Users should be able to create one or more filters. Each filter is combined using AND logic.
+*Example: Status = OPEN AND Author contains Amit (+ Add Filter)*
+
+**Supported Fields:** Status, Author
+**Supported Operators:** 
+- For Status: Equals
+- For Author: Equals, Contains
+
+### 5. Clear Filters
+Provide an option to clear all applied filters.
+
+### 6. Loading & Error States
+The application should handle:
+- API loading
+- Failed requests (Our mock API has a built-in failure rate to test your error handling!)
+- Empty results
+
+---
+
+## 🌟 Bonus Features (Optional)
+- Sort by Created Date
+- Sort by Author
+- Display total Pull Requests
+- Display Open vs Closed count
+- Responsive layout
+- Pagination
+
+---
+
+## 🔄 Product Change (Introduced During Interview)
+Approximately 20 minutes into the interview, the interviewer will introduce an additional requirement. Example:
+- Add a Repository filter, OR
+- Add support for filtering Draft Pull Requests.
+
+Candidates are expected to adapt their implementation accordingly. The objective is to evaluate extensibility rather than speed.
+`;

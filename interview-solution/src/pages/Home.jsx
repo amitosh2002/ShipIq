@@ -20,6 +20,15 @@ const ASSIGNMENTS = [
     difficulty: 'Advanced',
     icon: <Database size={32} color="var(--warning)" />,
     description: 'Build a test suite to validate the chaos logic, timeouts, and data structures of a resilient API.'
+  },
+  {
+    id: 'github-pr-explorer',
+    title: 'GitHub PR Explorer',
+    role: 'Frontend Engineer',
+    time: '40 Minutes',
+    difficulty: 'Intermediate',
+    icon: <Code size={32} color="var(--success)" />,
+    description: 'Build a web application that fetches GitHub Pull Requests and allows users to explore them with dynamic filters.'
   }
 ];
 

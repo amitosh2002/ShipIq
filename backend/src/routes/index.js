@@ -11,7 +11,11 @@ import {
   advancedSearch,
   updateProject,
   deleteLog,
-  chaosMiddleware
+  chaosMiddleware,
+  githubAuthMiddleware,
+  getGithubRepo,
+  getGithubPulls,
+  getGithubSinglePull
 } from '../controllers/interview.controller.js';
 
 const router = Router();
@@ -32,5 +36,11 @@ router.get('/projects', getProjects);
 router.post('/search', advancedSearch);
 router.put('/projects/:id', updateProject);
 router.delete('/logs/:id', deleteLog);
+
+// Mock GitHub API Routes
+router.use(['/repos'], chaosMiddleware, githubAuthMiddleware);
+router.get('/repos/:owner/:repo', getGithubRepo);
+router.get('/repos/:owner/:repo/pulls', getGithubPulls);
+router.get('/repos/:owner/:repo/pulls/:pull_number', getGithubSinglePull);
 
 export default router;

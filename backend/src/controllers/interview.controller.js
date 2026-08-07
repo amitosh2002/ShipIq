@@ -2,7 +2,9 @@ import {
   generateLogs,
   generateDeployments,
   generateNotifications,
-  generateProjects
+  generateProjects,
+  generateGithubRepo,
+  generateGithubPulls
 } from '../utils/mockGenerator.js';
 
 // Chaos Middleware: 37% overall chance to encounter edge cases (Hangs, Errors, Empty States, Malformed Data)
@@ -216,4 +218,69 @@ export const deleteLog = (req, res) => {
     deletedId: id,
     deletedAt: new Date().toISOString()
   });
+};
+
+// --- GITHUB API CONTROLLERS ---
+
+export const githubAuthMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ 
+      message: "Bad credentials", 
+      documentation_url: "https://docs.github.com/rest" 
+    });
+  }
+  // If token is provided, allow access
+  next();
+};
+
+export const getGithubRepo = (req, res) => {
+  const { owner, repo } = req.params;
+  
+  if (!owner || !repo) {
+    return res.status(404).json({ message: "Not Found", documentation_url: "https://docs.github.com/rest/repos/repos#get-a-repository" });
+  }
+
+  const repoData = generateGithubRepo(owner, repo);
+  res.json(repoData);
+};
+
+export const getGithubPulls = (req, res) => {
+  const { owner, repo } = req.params;
+  // Parse 'per_page' if provided, mimicking GitHub's pagination standard
+  let count = 30; // GitHub default per_page
+  if (req.query.per_page && !isNaN(parseInt(req.query.per_page))) {
+    count = parseInt(req.query.per_page);
+  }
+
+  if (!owner || !repo) {
+    return res.status(404).json({ message: "Not Found", documentation_url: "https://docs.github.com/rest/pulls/pulls#list-pull-requests" });
+  }
+
+  const pullsData = generateGithubPulls(owner, repo, count);
+  res.json(pullsData);
+};
+
+export const getGithubSinglePull = (req, res) => {
+  const { owner, repo, pull_number } = req.params;
+  
+  if (!owner || !repo || !pull_number) {
+    return res.status(404).json({ 
+      message: "Not Found", 
+      documentation_url: "https://docs.github.com/rest/pulls/pulls#get-a-pull-request",
+      status: "404"
+    });
+  }
+
+  // Generate a list of pulls and try to match the number, or just return the first one modified to match
+  const pullsData = generateGithubPulls(owner, repo, 1);
+  const singlePull = pullsData[0];
+  singlePull.number = parseInt(pull_number);
+  singlePull.url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
+  singlePull.html_url = `https://github.com/${owner}/${repo}/pull/${pull_number}`;
+  singlePull.diff_url = `https://github.com/${owner}/${repo}/pull/${pull_number}.diff`;
+  singlePull.patch_url = `https://github.com/${owner}/${repo}/pull/${pull_number}.patch`;
+  singlePull.issue_url = `https://api.github.com/repos/${owner}/${repo}/issues/${pull_number}`;
+  
+  res.json(singlePull);
 };

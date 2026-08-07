@@ -94,3 +94,103 @@ export const generateProjects = (query) => {
   }
   return projects;
 };
+
+// --- GITHUB API MOCKS ---
+
+export const generateGithubRepo = (owner, repo) => {
+  return {
+    id: Math.floor(Math.random() * 10000000),
+    node_id: "MDEwOlJlcG9zaXRvcnk=",
+    name: repo,
+    full_name: `${owner}/${repo}`,
+    private: false,
+    owner: {
+      login: owner,
+      id: Math.floor(Math.random() * 1000000),
+      avatar_url: `https://avatars.githubusercontent.com/u/${Math.floor(Math.random() * 10000)}?v=4`,
+      type: "Organization"
+    },
+    html_url: `https://github.com/${owner}/${repo}`,
+    description: `An awesome repository for ${repo} built by ${owner}.`,
+    fork: false,
+    url: `https://api.github.com/repos/${owner}/${repo}`,
+    created_at: new Date(Date.now() - Math.random() * 100000000000).toISOString(),
+    updated_at: new Date().toISOString(),
+    pushed_at: new Date().toISOString(),
+    size: Math.floor(Math.random() * 50000),
+    stargazers_count: Math.floor(Math.random() * 5000),
+    watchers_count: Math.floor(Math.random() * 5000),
+    language: ["JavaScript", "TypeScript", "Python", "Go", "Rust"][Math.floor(Math.random() * 5)],
+    has_issues: true,
+    has_projects: true,
+    has_downloads: true,
+    has_wiki: true,
+    has_pages: false,
+    forks_count: Math.floor(Math.random() * 1000),
+    open_issues_count: Math.floor(Math.random() * 100),
+    allow_forking: true,
+    is_template: false,
+    topics: ["react", "api", "interview", "tools"],
+    visibility: "public",
+    forks: Math.floor(Math.random() * 1000),
+    open_issues: Math.floor(Math.random() * 100),
+    watchers: Math.floor(Math.random() * 5000),
+    default_branch: "main"
+  };
+};
+
+export const generateGithubPulls = (owner, repo, count = 10) => {
+  const pulls = [];
+  const authors = ['amitosh', 'johndoe', 'janedoe', 'alex_dev', 'sarah-codes', 'dependabot[bot]'];
+  const titles = [
+    'feat: implement new search filters',
+    'fix: resolve memory leak in worker',
+    'chore: update dependencies',
+    'docs: update README with setup instructions',
+    'refactor: extract component logic',
+    'feat: add draft PR support',
+    'bug: button overflow on mobile',
+    'test: add unit tests for utils'
+  ];
+
+  for (let i = 0; i < count; i++) {
+    const isClosed = Math.random() > 0.7;
+    const isDraft = Math.random() > 0.8;
+    
+    pulls.push({
+      url: `https://api.github.com/repos/${owner}/${repo}/pulls/${100 + i}`,
+      id: Math.floor(Math.random() * 100000000),
+      node_id: "MDExOlB1bGxSZXF1ZXN0",
+      html_url: `https://github.com/${owner}/${repo}/pull/${100 + i}`,
+      diff_url: `https://github.com/${owner}/${repo}/pull/${100 + i}.diff`,
+      patch_url: `https://github.com/${owner}/${repo}/pull/${100 + i}.patch`,
+      issue_url: `https://api.github.com/repos/${owner}/${repo}/issues/${100 + i}`,
+      number: 100 + i,
+      state: isClosed ? 'closed' : 'open',
+      locked: false,
+      title: titles[Math.floor(Math.random() * titles.length)],
+      user: {
+        login: authors[Math.floor(Math.random() * authors.length)],
+        id: Math.floor(Math.random() * 1000000),
+        avatar_url: `https://avatars.githubusercontent.com/u/${Math.floor(Math.random() * 10000)}?v=4`,
+        type: "User"
+      },
+      body: "This is a mock pull request description.\n\nFixes #42.",
+      created_at: new Date(Date.now() - Math.random() * 10000000000).toISOString(),
+      updated_at: new Date().toISOString(),
+      closed_at: isClosed ? new Date().toISOString() : null,
+      merged_at: isClosed && Math.random() > 0.2 ? new Date().toISOString() : null,
+      merge_commit_sha: "e5bd3914e2e596debea16f433f57875b5b90bcd6",
+      assignee: null,
+      assignees: [],
+      requested_reviewers: [],
+      requested_teams: [],
+      labels: [],
+      draft: isDraft,
+      author_association: "CONTRIBUTOR"
+    });
+  }
+  
+  // Sort by created_at descending (newest first, typical GitHub API behavior)
+  return pulls.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+};

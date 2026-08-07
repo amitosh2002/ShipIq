@@ -549,3 +549,12 @@ body {
 .markdown-body th, .markdown-body td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
 .markdown-body th { background-color: var(--bg-tertiary); }
 .markdown-body hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
