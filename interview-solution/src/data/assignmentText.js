@@ -20,7 +20,7 @@ Your task is to build this Full-Stack developer tool.
 
 ## 🌐 The Interview API
 
-You will hit our Mock Internal API (e.g., \`http://localhost:3000\`).
+You will hit our Mock Internal API (e.g., \`https://shipiq-backend-service.onrender.com\`).
 
 > **Real-World API Instability**  
 > This API is designed to mimic real-world microservices under heavy load. **37% of all requests will encounter edge cases.** Your application must gracefully handle:
