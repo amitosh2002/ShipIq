@@ -61,6 +61,15 @@ You must build a Full Stack application (Frontend + Backend Proxy/Logger) that a
 3. **Handle Edge Cases:** Catch timeouts, standard errors (400, 500, 429), and malformed JSON cleanly in the UI.
 4. **Log & Save Responses:** Your backend must intercept these responses (both successes and failures), segregate them, and save them to a database as a "Report".
 5. **View History:** Provide a separate "History" page in your UI that queries your backend to show a log of all past API requests made.
+6. **Postman-like API Tester:** Create a dedicated page acting like Postman where users can construct requests, test the API, and automatically store the results.
+   - Provide a UI with a URL input bar and a dropdown for HTTP methods (GET, POST, PUT, DELETE).
+   - Include dynamic inputs for Headers, Query Parameters, and a text area for a JSON Request Body.
+   - Display the JSON Response payload, HTTP Status Code, and Response Time in a dedicated panel.
+   - Automatically intercept and save the executed request (along with its success/failure state) to the database.
+7. **Database Query Interface:** Build a page where users can write custom queries to fetch and analyze the stored API response data directly from their database.
+   - Provide a UI (like a mini-SQL editor or a structured filter builder) to search the stored logs.
+   - *Example Use Case:* Write a query to fetch all failed requests (Status > 399) or requests that took longer than 2000ms.
+   - Render the database query results in a clean table or dashboard view for analysis.
 
 ### Technical Requirements
 - **Backend:** Express.js, REST APIs, Modular architecture.
@@ -287,6 +296,19 @@ The application should handle:
 - API loading
 - Failed requests (Our mock API has a built-in failure rate to test your error handling!)
 - Empty results
+
+### 7. Postman-like API Tester
+Create a dedicated page acting like Postman where users can construct requests, test the GitHub Mock API, and automatically store the results.
+- Provide a UI with a URL input bar and a dropdown for HTTP methods (GET, POST, etc.).
+- Include dynamic inputs for Headers (e.g., Authorization), Query Parameters, and a text area for a JSON Request Body.
+- Display the JSON Response payload, HTTP Status Code, and Response Time in a dedicated panel.
+- Automatically intercept and save the executed request (along with its success/failure state) to the database.
+
+### 8. Database Query Interface
+Build a page where users can write custom queries to fetch and analyze the stored API response data directly from their database.
+- Provide a UI (like a mini-SQL editor or a structured filter builder) to search the stored logs.
+- *Example Use Case:* Write a query to fetch all failed requests (Status > 399) or requests that took longer than 2000ms.
+- Render the database query results in a clean table or dashboard view for analysis.
 
 ---
 
