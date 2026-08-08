@@ -200,6 +200,12 @@ Candidates must construct a Full-Stack application consisting of a React Fronten
 3. **Resilient Client-Side Handling:** Intercept and handle timeout cancellations, HTTP error states (4xx, 5xx), empty data payloads, and malformed JSON syntax.
 4. **Response Segregation & Backend Persistence:** Intercept every outbound request/response in the candidate's backend, categorize responses (Success, Client Error, Server Error, Timeout, Parsing Failure), and store them.
 5. **Audit Trail / Request History View:** Provide a dedicated UI view displaying historically executed requests, response times, status codes, and stored payloads.
+6. **Smoke Test & Audit Report:** 
+   - Develop a script to run a 3-5 minute automated smoke test against the endpoints.
+   - Capture all responses and generate a comprehensive **Audit Report**.
+   - The report must segregate results into **Success** and **Failure** sections.
+   - For each request, the report must include the following columns: *HTTP Method, Endpoint, Status Code, Response Time, Expected Response, and Actual Response*.
+   - Based on the audit failures, the candidate must file formal bug reports detailing the issues encountered.
 `;
 
 export const GITHUB_PR_ASSIGNMENT = `
