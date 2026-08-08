@@ -1,5 +1,5 @@
 export const API_EXPLORER_ASSIGNMENT = `
-# Hora Software Engineering Internship
+#  Software Engineering Internship
 ## Live Coding Challenge – API Explorer & Monitoring Tool
 
 **Duration:** 40 - 60 Minutes  
@@ -10,7 +10,7 @@ export const API_EXPLORER_ASSIGNMENT = `
 
 ## 🏢 Background
 
-At Hora, our engineering team uses several internal services that continuously generate live operational data such as application logs, deployments, notifications, and project activities.
+ our engineering team uses several internal services that continuously generate live operational data such as application logs, deployments, notifications, and project activities.
 
 To help developers debug and analyze these services, we need a lightweight **API Explorer & Monitoring Tool** (similar to Postman or Datadog). This tool must execute requests against these services, catch any API failures, store the responses, and allow users to view their query history.
 
