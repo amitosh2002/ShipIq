@@ -244,6 +244,8 @@ Build a small web application that displays GitHub Pull Requests for a repositor
 ### APIs
 You will use our **Mock GitHub API** which perfectly replicates the real GitHub API responses (but doesn't require a real token or hit rate limits).
 
+**Base URL:** Use the same Mock API URL (e.g., \`https://shipiq-backend-service.onrender.com\` or \`http://localhost:3000\`).
+
 The interviewer will provide:
 - **Repository Owner** (e.g., \`hora-hq\`)
 - **Repository Name** (e.g., \`core-api\`)
