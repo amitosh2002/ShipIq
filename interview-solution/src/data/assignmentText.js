@@ -330,4 +330,116 @@ Approximately 20 minutes into the interview, the interviewer will introduce an a
 - Add support for filtering Draft Pull Requests.
 
 Candidates are expected to adapt their implementation accordingly. The objective is to evaluate extensibility rather than speed.
-`;
+};
+
+export const SERVER_MONITORING_ASSIGNMENT = `
+# 45 min Challenge
+**Version:** 1.0  
+**Duration:** 45 Minutes Coding + 15 Minutes Discussion  
+**AI Usage:** ✅ Allowed
+
+---
+
+## 🎯 Objective
+Build a Real-time Server Monitoring Dashboard that tests a candidate's ability to handle asynchronous polling, complex state management, and real-world API instability.
+
+---
+
+## 💻 Challenge: Server Monitoring Dashboard
+You need to build a dashboard that tracks the health of our internal microservices. The application should continuously fetch live server logs and deployment statuses.
+
+### APIs
+You will use our **Mock Internal API** which perfectly replicates a production environment under heavy load.
+
+**Base URL:** Use the Mock API URL (e.g., \`https://shipiq-backend-service.onrender.com\` or \`http://localhost:3000\`).
+
+> **⚠️ Real-World API Instability Simulation**  
+> 37% of all requests will encounter edge cases:
+> - **10% chance to HANG:** The API hangs for 20s.
+> - **20% chance to FAIL:** The API returns random HTTP errors (500, 502, 429).
+> - **5% chance of EMPTY STATE:** The API returns \`200 OK\` but no data.
+> - **2% chance of MALFORMED JSON:** Broken JSON that crashes parsers.
+
+**Required Endpoints:**
+1. \`GET /logs?count=100\`
+2. \`GET /deployments?count=5\`
+
+---
+
+## 📋 Functional Requirements
+
+### 1. Live Data Polling
+- Poll the \`/logs\` endpoint every 10 seconds.
+- Poll the \`/deployments\` endpoint every 30 seconds.
+
+### 2. Dashboard UI
+- **Log Analytics:** Display the total count of \`ERROR\` vs \`INFO\` logs in a visual format (progress bar, simple chart, or stat cards).
+- **Recent Deployments:** Show a list of the 5 most recent deployments and their statuses (SUCCESS, FAILED, IN_PROGRESS).
+- **Service Health Indicator:** Show an overall "System Status" (Healthy if the last API call succeeded, Degraded if it failed or timed out).
+
+### 3. Edge Case Handling
+- **Timeouts:** If a request hangs, cancel it after 5 seconds and display a non-intrusive warning.
+- **Failures:** Do not crash the application when the API returns a 500 or malformed JSON. Keep displaying the last known good data.
+
+---
+
+## 🔄 Product Change (Introduced During Interview)
+Approximately 20 minutes into the interview, the interviewer will introduce one of the following requirements:
+1. **Exponential Backoff:** "When the API fails, stop polling every 10s. Instead, increase the delay to 20s, then 40s, up to a maximum of 2 minutes, until it succeeds again."
+2. **Tab Visibility Check:** "Stop polling when the user switches away from the browser tab to save bandwidth."
+
+The objective is to see how easily they can modify their setInterval logic.
+\`;
+
+export const NOTIFICATION_CENTER_ASSIGNMENT = \`
+# 45 min Challenge
+**Version:** 1.0  
+**Duration:** 45 Minutes Coding + 15 Minutes Discussion  
+**AI Usage:** ✅ Allowed
+
+---
+
+## 🎯 Objective
+Build a dynamic Notification Center component to test a candidate's ability to handle optimistic UI updates, data mutation, and graceful error recovery.
+
+---
+
+## 💻 Challenge: Interactive Notification Center
+Build a dropdown notification feed (similar to the GitHub or Facebook bell icon) that lets users view and manage their alerts.
+
+### APIs
+You will use our **Mock Internal API**.
+
+**Base URL:** Use the Mock API URL (e.g., \`https://shipiq-backend-service.onrender.com\` or \`http://localhost:3000\`).
+
+> **⚠️ API Instability**  
+> As always, expect 37% of requests to fail, hang, or return corrupted data.
+
+**Required Endpoints:**
+1. \`GET /notifications?count=20\`
+2. \`PUT /projects/:id\` (We will repurpose this as a mock "Mark as Read" endpoint for notifications)
+
+---
+
+## 📋 Functional Requirements
+
+### 1. Notification Feed
+- Display a "Bell" icon with an unread badge counter.
+- Clicking the bell opens a popover/dropdown showing the latest notifications.
+- Differentiate read vs unread notifications visually.
+
+### 2. Optimistic UI Updates
+- When a user clicks a notification to "Mark as Read", immediately update the UI (reduce the unread count, change the style).
+- Make a \`PUT\` request to the API in the background.
+- **Crucial:** Because our API randomly fails 20% of the time, if the \`PUT\` request fails, you must **revert** the UI back to its previous unread state and show a toast error message.
+
+### 3. Empty States & Loading
+- Show a skeleton loader while initially fetching.
+- Handle the 5% chance where the API returns an empty array perfectly.
+
+---
+
+## 🔄 Product Change (Introduced During Interview)
+Midway through the interview, the interviewer will ask the candidate to add:
+- **"Mark All as Read" Button:** This should optimistically update all items at once, but if the bulk API call fails, revert the entire list back to its exact previous state.
+\`;
